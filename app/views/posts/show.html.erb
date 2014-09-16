@@ -1,0 +1,34 @@
+<div class="post_wrapper">
+	<div class="post_title">
+		<h1><%= @post.title %></h1>
+		<h3>By: <%= link_to @post.author.name, @post.author %></h3>
+	</div>
+
+	<div class="post_content">
+		<p><%= @post.content %></p>
+	</div>
+<p>Liked by:
+<% @likers.each do |liker| %>
+	<%= liker %>
+<% end %>
+</p>
+
+<% if liked?(@post) %>
+	<button><%= link_to "Unlike", like_path(like_id(@post), :post_id => params[:id]), method: :delete %></button>
+
+<% else %>
+	<button><%= link_to "Like", likes_path(:post_id => params[:id]), method: :post %></button>
+<% end %>
+
+<%= form_for @comment do |f| %>
+	<%= f.text_area :content %>
+
+	<%= f.hidden_field :post_id, :value => @post.id %>
+
+	<%= f.submit "Comment" %>
+<% end %>	
+<% @post.comments.each do |comment| %>
+	<h4><%= comment.user.name %>: </h4>
+	<p><%= comment.content %></p>
+<% end %>	
+</div>

@@ -1,0 +1,39 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user_wrapper {
+	width: 85%;
+	background-color: #e3e3e3;
+	padding: 5px;
+	border-radius: 5px;
+	margin: 10px auto 0 auto;
+}
+
+.profile_header {
+	background-color: white;
+	border-radius: 5px;
+	margin-top: 7px;
+}
+
+.status, .about, .new_post {
+	margin: 5px;
+	padding: 5px;
+	background-color: white;
+	border-radius: 5px;
+}
+
+.status_wrapper {
+	width: 65%;
+	float: right;
+}
+
+.about {
+	width: 32%;
+	float: left;
+}
+
+#clear {
+	clear:both;
+	text-indent: -99999px;
+}

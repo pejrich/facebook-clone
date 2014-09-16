@@ -1,0 +1,11 @@
+<%= form_for @message do |f| %>
+
+	<%= f.hidden_field :sender_id, :value => current_user.id %>
+	<%= f.hidden_field :recipient_id, :value => params[:message_to] %>
+
+	<%= f.label :content %>
+	<%= f.text_area :content %>
+
+	<%= f.submit "Send" %>
+
+<% end %>	

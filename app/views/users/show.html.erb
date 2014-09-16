@@ -1,0 +1,27 @@
+<div class="user_wrapper">
+	<div class="profile_header">
+		<h1><%= @user.name %></h1>
+	</div>
+
+	<div class="about">
+		<h4>ABOUT</h4>
+		<h5>TO BE DONE</h5>
+	</div>
+
+	<div class="status_wrapper">
+	<div class="new_post">
+		<h5>POST ON THE WALL</h5>
+	</div>
+	<% @user.posts.each do |post| %>
+		<div class="status">
+			<h3><%= link_to post.author.name %></h3>
+			<h4><%= post.created_at.strftime("%B %d, %Y") %></h4>
+			<p><%= post.content %></p>
+		</div>
+	<% end %>	
+	</div>
+<p id="clear">clear</p>	
+</div>
+<%= link_to "New Post", new_post_path %>
+
+<%= link_to "All Users", users_path %>
