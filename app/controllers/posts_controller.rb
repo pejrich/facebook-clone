@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+	before_filter :authenticate_user!
 
 	def new
 		@post = Post.new
@@ -8,7 +9,7 @@ class PostsController < ApplicationController
 		@post = Post.new(post_params)
 		if @post.save
 			flash[:success] = "Post created."
-			redirect_to @post
+			redirect_to @post.wall.user
 		else
 			render 'new'
 		end
@@ -24,6 +25,6 @@ class PostsController < ApplicationController
 	private
 
 		def post_params
-			params.require(:post).permit(:title, :content, :author_id)
+			params.require(:post).permit(:title, :content, :author_id, :wall_id)
 		end
 end

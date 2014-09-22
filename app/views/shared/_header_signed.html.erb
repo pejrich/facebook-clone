@@ -1,9 +1,19 @@
 <header class="signed_in_header">
 	<h1 class="logo">facebook</h1>
+	<%= form_tag @search, :id => 'search', :method => 'get' do %>
+		<p>
+		<%= text_field_tag :search, params[:search] %>
+		<%= submit_tag "Search" %>
+		</p>
+	<% end %>
 	<ul>
 		<li>requests</li>
 		<li>messages</li>
-		<li>notifications</li>
+		<li id="notification_link">notifications
+			<% if current_user.notifications.any? %>
+				(<%= current_user.notifications.count %>)
+			<% end %>
+		</li>
 
 		<li><%= link_to current_user.name, user_path(current_user.id) %></li>
 		<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>

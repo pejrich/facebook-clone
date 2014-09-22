@@ -1,4 +1,6 @@
 Facebook::Application.routes.draw do
+  get "controller/create"
+  get "controller/destroy"
   root "welcome#index"
   devise_for :users
   resources :users
@@ -7,6 +9,8 @@ Facebook::Application.routes.draw do
   resources :posts
   resources :likes
   resources :comments
+  resources :friendships
+  resources :notifications
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

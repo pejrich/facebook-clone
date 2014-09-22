@@ -2,25 +2,96 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+* {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h4 {
+	border-bottom: thin solid #e3e3e3;
+	text-align: center;
+}
+
 .user_wrapper {
 	width: 85%;
-	background-color: #e3e3e3;
-	padding: 5px;
 	border-radius: 5px;
-	margin: 10px auto 0 auto;
+	margin: 0 auto 0 auto;
 }
+
+
+
+#profile_photo {
+	position: relative;
+	top: 170px;
+	left: 10px;
+	width: 160px;
+	height: 160px;
+	margin: 5px;
+	border: thick solid #e3e3e3;
+}
+
 
 .profile_header {
-	background-color: white;
-	border-radius: 5px;
-	margin-top: 7px;
+	padding-right: 5px;
+	position: relative;
+	width: 1000px;
+	height: 315px;
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	background-size: 1000px 315px;
 }
 
-.status, .about, .new_post {
+
+.profile_header h1 {
+	display: inline;
+	position: absolute;
+	top: 250px;
+	margin-left: 15px;
+	color: rgb(255, 255, 255);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;	
+	text-shadow: rgba(0, 0, 0, 0.8) 0px 0px 3px;
+}
+
+.profile_header h5 {
+	display: inline;
+	position: absolute;
+	top: 290px;
+	padding-left: 5px;
+	color: rgb(255, 255, 255);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;	
+	text-shadow: rgba(190, 190, 190, 0.8) 0px 0px 3px;
+}
+
+.profile_nav ul {
+	list-style: none;
+	display: inline;
+}
+
+.profile_nav li {
+	display: inline;
+	width: 25%;
+	color: rgb(59, 89, 152);
+	font-family: Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	height: 43px;
+	line-height: 42.7000007629395px;
+	padding: 0 60px;
+}
+
+.profile_nav ul:first-child {
+	margin-left: 225px;
+}
+
+.status, .about, .new_post, .friends {
 	margin: 5px;
 	padding: 5px;
 	background-color: white;
 	border-radius: 5px;
+}
+
+#friend_picture {
+	width: 50px;
+	height: 50px;
 }
 
 .status_wrapper {
@@ -28,12 +99,47 @@
 	float: right;
 }
 
-.about {
+.status {
+	position: relative;
+}
+
+.status h3 {
+	display: inline;
+	position: relative;
+	top: -35px;
+	left: -10px;
+}
+
+.status h5 {
+	display: inline;
+	position: relative;
+	top: -15px;
+	left: -162px;
+}
+
+.status_picture {
+	width: 50px;
+	height: 50px;	
+}
+
+.info_wrapper {
 	width: 32%;
 	float: left;
 }
 
+.status, .new_post, .friends, .about {
+	border: thick solid #e3e3e3;
+
+}
+
+
 #clear {
 	clear:both;
 	text-indent: -99999px;
+}
+
+
+.about h5 {
+	border-bottom: thin solid #e3e3e3;
+	padding: 5px 0 5px 5px;
 }

@@ -1,27 +1,134 @@
+<% if @user.cover_photo %>
+<style media="screen">
+	.profile_header { background-image: url('<%= @user.cover_photo.photo.url %>'); }
+</style>
+<% end %>
+<%= render "shared/search_results" %>
+<%= render "shared/notifications" %>
 <div class="user_wrapper">
+<div class="banner_wrapper">
 	<div class="profile_header">
+			<!-- cover photo -->
+		<!-- 	<% if @user.cover_photo %>
+				<%= image_tag @user.cover_photo.photo.url, :id => "cover_photo" %>
+			<% else %>
+				<%= image_tag ("cover_default.jpg"), :id => "cover_photo" %>
+			<% end %> -->
+
+			<!-- profile photo -->
+			<% if @user.profile_photo %>
+				<%= image_tag @user.profile_photo.photo.url, :id => "profile_photo" %>
+			<% else %>
+				<%= image_tag ("profile_default.png"), :id => "profile_photo" %>
+			<% end %>		
 		<h1><%= @user.name %></h1>
-	</div>
+		<% if current_user.friendships.where(:friend_id => @user.id).any? %>
+			<h5>Friend <%= link_to "(cancel)", friendship_path(current_user.friendships.where(:friend_id => @user.id).first.id), :method => :delete %></h5>	
+		<% elsif @user.id != current_user.id && current_user.sent_requests.where(:recipient_id => @user.id).any? %>
+			<h5>Friend Request Sent</h5>
+		<% elsif @user.id != current_user.id %>		
+			<h5><%= link_to "Send Friend Request", requests_path(:recipient_id => @user.id), :method => :post %></h5>	
+		<% end %>
+	</div> <!-- end profile_header -->
+
+	<div class="profile_nav">
+		<ul class="nav">
+			<li>Timeline</li>
+			<li>About</li>
+			<li>Photos</li>
+			<li>Friends</li>
+		</ul>
+	</div> <!-- end profile_nav -->	
+</div> <!-- end banner_wrapper -->	
+<div class="content">
+	<div class="info_wrapper">
 
 	<div class="about">
-		<h4>ABOUT</h4>
-		<h5>TO BE DONE</h5>
-	</div>
+		<h4>ABOUT <%= @user.first_name.upcase %></h4>
+		<% if !@user.job_title.blank? %>
+			<h5><%= @user.job_title %>
+				<% if !@user.company.blank? %>
+					at <%= @user.company %>
+				<% end %>
+			</h5>
+		<% end %>
+		<% if !@user.current_city.blank? %><h5>Lives in <%= @user.current_city %></h5><% end %>
+		<% if !@user.home_town.blank? %><h5>From <%= @user.home_town %></h5><% end %>
+		<% if @user.in_a_relationship %>
+			<h5><%= @user.first_name %> is in a relationship</h5>
+		<% else %>
+			<h5><%= @user.first_name %> is single</h5>
+		<% end %>		
+
+		<% if @user.id == current_user.id %>
+			<%= link_to "Edit profile", edit_user_path(current_user.id) %>
+		<% end %>	
+	</div> <!-- end about -->
+
+	<% if @user.friends.any? %>
+	<div class="friends">
+		<h4><%= @user.first_name.upcase %>'S FRIENDS - <%= @user.friends.count %></h4>
+		<% @user.friends.each do |friend| %>
+			<% if friend.profile_photo %>
+				<%= image_tag friend.profile_photo.photo.url, :id => "friend_picture" %>
+			<% else %>
+				<%= image_tag ("profile_default.png"), :id => "friend_picture" %>
+			<% end %>	
+			<%= link_to friend.name, user_path(friend.id) %>
+		<% end %>	
+	</div> <!-- end friends -->
+	<% end %>
+
+	</div> <!-- end info_wrapper -->
 
 	<div class="status_wrapper">
-	<div class="new_post">
-		<h5>POST ON THE WALL</h5>
-	</div>
-	<% @user.posts.each do |post| %>
-		<div class="status">
-			<h3><%= link_to post.author.name %></h3>
-			<h4><%= post.created_at.strftime("%B %d, %Y") %></h4>
-			<p><%= post.content %></p>
-		</div>
-	<% end %>	
-	</div>
-<p id="clear">clear</p>	
-</div>
-<%= link_to "New Post", new_post_path %>
+		<div class="new_post">
+			<h5>Post on <%= @user.name %>'s wall:</h5>
+			<%= form_for @post, :html => {:class => "new_post_form"} do |f| %>
+				<%= f.text_area :content %>
 
-<%= link_to "All Users", users_path %>
+				<%= f.hidden_field :author_id, :value => current_user.id %>
+				<%= f.hidden_field :wall_id, :value => @user.wall.id %>
+
+				<%= f.submit %>
+			<% end %>
+		</div> <!-- end new_post -->
+		<% @user.wall.posts.each do |post| %>
+			<div class="status">
+				<%= image_tag post.author.profile_photo.photo.url, :class => "status_picture" %>
+				<h3><%= link_to post.author.name, user_path(post.author.id) %></h3>
+				<h5><%= post.created_at.strftime("%B %d, %Y") %></h5>
+				<p><%= post.content %></p>
+
+				<!-- display likes -->
+				<% if post.likers.any? %><p class="likers">
+					<% post.likers.each do |liker| %>
+						<%= link_to liker.name, user_path(liker.id) %>
+					<% end %>
+					<% if post.likers.count == 1 %>
+					likes this.
+					<% else %>
+					like this.
+					<% end %>
+				</p>
+				<% end %>
+
+				<!-- display 'like' or 'unlike' -->
+				<% if liked?(post) %>
+						<%= link_to "Unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %>
+				<% else %>
+						<%= link_to "Like", likes_path(:post_id => post.id), method: :post %>
+				<% end %>
+
+				<!-- form for comment display -->	
+				<% @post.comments.each do |comment| %>
+					<h4><%= comment.user.name %>: </h4>
+					<p><%= comment.content %></p>
+				<% end %>
+
+			</div> <!-- end status -->
+		<% end %>	
+	</div> <!-- end status_wrapper -->	
+<p id="clear">clear</p>	
+</div> <!-- end content -->
+</div> <!-- end user_wrapper -->

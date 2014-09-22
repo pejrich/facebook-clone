@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831121019) do
+ActiveRecord::Schema.define(version: 20140921113235) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
     t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,12 +43,34 @@ ActiveRecord::Schema.define(version: 20140831121019) do
     t.datetime "updated_at"
   end
 
+  create_table "notifications", force: true do |t|
+    t.string   "message"
+    t.integer  "user_id"
+    t.integer  "sender_id"
+    t.boolean  "friend_request?"
+    t.integer  "request_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", force: true do |t|
+    t.integer  "user_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "profile_photo"
+    t.boolean  "cover_photo"
+  end
+
   create_table "posts", force: true do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "wall_id"
   end
 
   create_table "requests", force: true do |t|
@@ -67,10 +96,23 @@ ActiveRecord::Schema.define(version: 20140831121019) do
     t.datetime "updated_at"
     t.string   "username"
     t.string   "name"
+    t.string   "company"
+    t.string   "job_title"
+    t.string   "current_city"
+    t.string   "home_town"
+    t.boolean  "in_a_relationship"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
+
+  create_table "walls", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,0 +1,15 @@
+<ul id="notifications">
+	<% if @notifications %>
+		<ul>
+		<% @notifications.each do |notification| %>
+			<li>
+				<%= notification.message %><br>
+				<% if notification.friend_request? %>
+					<%= link_to "Accept", notification_path(notification.id, :accepted => 1, :notification_id => notification.id), :method => :delete %>
+					/<%= link_to "Decline", notification_path(notification.id, :accepted => 0, :notification_id => notification.id), :method => :delete %>
+				<% end %>	
+			</li>
+		<% end %>
+		</ul>	
+	<% end %>	
+</ul>

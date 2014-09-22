@@ -1,17 +1,18 @@
 class LikesController < ApplicationController
+	before_filter :authenticate_user!
 
 	def create
 		@like = current_user.likes.build(like_params)
 		if @like.save
 			flash[:success] = "Post liked"
-			redirect_to post_path(like_params[:post_id])
+			redirect_to :back
 		end
 	end
 
 	def destroy
 		@like = Like.find(params[:id]).destroy
 		flash[:success] = "Post unliked"
-		redirect_to post_path(like_params[:post_id])
+		redirect_to :back
 	end
 
 	private

@@ -1,0 +1,41 @@
+<h2>Edit <%= @user.name %>'s profile</div>
+
+  <%= form_for @user do |f| %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+<br>
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+<br>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+<br>
+  <%= f.label :job_title %>
+  <%= f.text_field :job_title %>
+<br>
+  <%= f.label :company %>
+  <%= f.text_field :company %>
+<br>
+  <%= f.label :current_city %>
+  <%= f.text_field :current_city %>
+<br>
+  <%= f.label :home_town %>
+  <%= f.text_field :home_town %>
+<br>
+  <%= f.label :in_a_relationship %>
+  <%= f.check_box :in_a_relationship %>
+<br>
+  <div><%= f.label :photo %><br />
+  <% if @user.profile_photo %>
+    <%= image_tag @user.profile_photo.photo.url(:thumb) %><br>
+  <% end %>  
+  <%= f.file_field :photo %>
+  </div>   
+
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
+
+
+<%= link_to "Back", :back %>
