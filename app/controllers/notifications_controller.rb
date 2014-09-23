@@ -20,6 +20,7 @@ class NotificationsController < ApplicationController
 			redirect_to current_user
 		else
 			notification.destroy
+			redirect_to current_user
 		end
 					
 	end

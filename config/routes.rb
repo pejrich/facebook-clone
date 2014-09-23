@@ -2,7 +2,8 @@ Facebook::Application.routes.draw do
   get "controller/create"
   get "controller/destroy"
   root "welcome#index"
-  devise_for :users
+  devise_for :users, :controllers => { registrations: 'registrations' }
+
   resources :users
   resources :messages
   resources :requests

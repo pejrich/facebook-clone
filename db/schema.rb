@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(version: 20140921113235) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
-    t.string   "name"
     t.string   "company"
     t.string   "job_title"
     t.string   "current_city"
@@ -103,6 +102,7 @@ ActiveRecord::Schema.define(version: 20140921113235) do
     t.boolean  "in_a_relationship"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

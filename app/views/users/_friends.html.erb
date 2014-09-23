@@ -1,0 +1,13 @@
+<% if @user.friends.any? %>
+<div class="friends">
+	<h4><%= @user.first_name.upcase %>'S FRIENDS - <%= @user.friends.count %></h4>
+	<% @user.friends.each do |friend| %>
+		<% if friend.profile_photo %>
+			<%= image_tag friend.profile_photo.photo.url, :id => "friend_picture" %>
+		<% else %>
+			<%= image_tag ("profile_default.png"), :id => "friend_picture" %>
+		<% end %>	
+		<%= link_to friend.name, user_path(friend.id) %>
+	<% end %>	
+</div> <!-- end friends -->
+<% end %>

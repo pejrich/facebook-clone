@@ -33,8 +33,10 @@ before_filter :authenticate_user!
 		current_profile_photo = @user.profile_photo
 		@profile_photo = Photo.new(profile_photo_params)
 		if @profile_photo.save
-			current_profile_photo.profile_photo = false
-			current_profile_photo.save
+			if current_profile_photo
+				current_profile_photo.profile_photo = false
+				current_profile_photo.save
+			end
 		end
 		if @user.save
 			redirect_to @user

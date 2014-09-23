@@ -1,0 +1,48 @@
+<% @user.wall.posts.each do |post| %>
+	<div class="status">
+		<% if post.author.profile_photo %>
+			<%= image_tag post.author.profile_photo.photo.url, :class => "status_picture" %>
+		<% else %>
+			<%= image_tag image_path("profile_default.png"), :class => "status_picture" %>
+		<% end %>	
+		<h3>
+			<% if post.author != @user %>
+				<%= link_to post.author.name, user_path(post.author.id) %> > 
+				<%= link_to @user.name, user_path(@user.id) %>
+			<% else %>	
+				<%= link_to post.author.name, user_path(post.author.id) %>
+			<% end %>	
+		</h3>
+		<h5><%= post.created_at.strftime("%B %d") %></h5>
+		<p><%= post.content %></p>
+
+		<!-- display likes -->
+		<p class="likers">
+		<% if post.likers.any? %>
+			<% post.likers.each do |liker| %>
+				<%= link_to liker.name, user_path(liker.id) %>
+			<% end %>
+			<% if post.likers.count == 1 %>
+			likes this.
+			<% else %>
+			like this.
+			<% end %>
+		<% end %>
+
+		<!-- display 'like' or 'unlike' -->
+		<% if liked?(post) %>
+				<%= link_to "unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %>
+		<% else %>
+				<%= link_to "like", likes_path(:post_id => post.id), method: :post %>
+		<% end %>
+		| <%= link_to "comment", "#" %>
+		</p>
+
+		<!-- form for comment display -->	
+		<% @post.comments.each do |comment| %>
+			<h4><%= comment.user.name %>: </h4>
+			<p><%= comment.content %></p>
+		<% end %>
+
+	</div> <!-- end status -->
+<% end %>

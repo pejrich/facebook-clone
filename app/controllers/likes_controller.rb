@@ -5,6 +5,11 @@ class LikesController < ApplicationController
 		@like = current_user.likes.build(like_params)
 		if @like.save
 			flash[:success] = "Post liked"
+			post = Post.find(like_params[:post_id])
+			if post.author != current_user
+				post.author.notifications.build(:message => "#{current_user.name} liked your post on #{post.wall.user.name}'s wall",
+												:sender_id => current_user.id).save
+			end
 			redirect_to :back
 		end
 	end
@@ -20,6 +25,4 @@ class LikesController < ApplicationController
 		def like_params
 			params.permit(:post_id)
 		end
-
-
 end

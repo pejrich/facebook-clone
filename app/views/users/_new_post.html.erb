@@ -1,0 +1,11 @@
+<div class="new_post">
+	<h5>Post on <%= @user.name %>'s wall:</h5>
+	<%= form_for @post, :html => {:class => "new_post_form"} do |f| %>
+		<%= f.text_area :content %>
+
+		<%= f.hidden_field :author_id, :value => current_user.id %>
+		<%= f.hidden_field :wall_id, :value => @user.wall.id %>
+
+		<%= f.submit %>
+	<% end %>
+</div> <!-- end new_post -->

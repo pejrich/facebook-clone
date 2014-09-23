@@ -1,0 +1,9 @@
+<% if @user.cover_photo %>
+	<style media="screen">
+		.profile_header { background-image: url('<%= @user.cover_photo.photo.url %>'); }
+	</style>
+<% else %>
+	<style media="screen">
+		.profile_header { background-image: url('<%= image_path("cover_default.jpg") %>'); }
+	</style>
+<% end %>

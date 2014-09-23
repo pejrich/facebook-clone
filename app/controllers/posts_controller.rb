@@ -9,6 +9,10 @@ class PostsController < ApplicationController
 		@post = Post.new(post_params)
 		if @post.save
 			flash[:success] = "Post created."
+			if @post.wall.user != current_user
+				@post.wall.user.notifications.build(:sender_id => current_user.id,
+													:message => "#{current_user.name} posted on your wall.").save
+			end
 			redirect_to @post.wall.user
 		else
 			render 'new'

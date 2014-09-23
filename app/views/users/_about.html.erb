@@ -1,0 +1,21 @@
+<div class="about">
+	<h4>ABOUT <%= @user.first_name.upcase %></h4>
+	<% if !@user.job_title.blank? %>
+		<h5><%= @user.job_title %>
+			<% if !@user.company.blank? %>
+				at <%= @user.company %>
+			<% end %>
+		</h5>
+	<% end %>
+	<% if !@user.current_city.blank? %><h5>Lives in <%= @user.current_city %></h5><% end %>
+	<% if !@user.home_town.blank? %><h5>From <%= @user.home_town %></h5><% end %>
+	<% if @user.in_a_relationship %>
+		<h5><%= @user.first_name %> is in a relationship</h5>
+	<% else %>
+		<h5><%= @user.first_name %> is single</h5>
+	<% end %>		
+
+	<% if @user.id == current_user.id %>
+		<%= link_to "Edit profile", edit_user_path(current_user.id) %>
+	<% end %>	
+</div> <!-- end about -->

@@ -3,10 +3,13 @@
 		<ul>
 		<% @notifications.each do |notification| %>
 			<li>
-				<%= notification.message %><br>
 				<% if notification.friend_request? %>
+					<%= link_to notification.message, user_path(notification.sender_id) %><br>
 					<%= link_to "Accept", notification_path(notification.id, :accepted => 1, :notification_id => notification.id), :method => :delete %>
 					/<%= link_to "Decline", notification_path(notification.id, :accepted => 0, :notification_id => notification.id), :method => :delete %>
+				<% else %>
+					<%= link_to notification.message, user_path(notification.user_id) %><br>
+					<%= link_to "Ok", notification_path(notification.id, :notification_id => notification.id), :method => :delete %>
 				<% end %>	
 			</li>
 		<% end %>

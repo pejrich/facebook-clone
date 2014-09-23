@@ -1,4 +1,10 @@
 class User < ActiveRecord::Base
+  after_save :set_wall_and_profile_photo
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+
 	before_save :add_name
 	# For friend requests
 	has_many :sent_requests, :foreign_key => :sender_id, :class_name => "Request"
@@ -32,9 +38,20 @@ class User < ActiveRecord::Base
   	end
   end
 
+  def set_wall_and_profile_photo
+    self.wall = Wall.new
+    self.wall.save
+    if self.photos.any?
+      self.photos.first.profile_photo = true
+      self.photos.first.save
+    end
+  end
+
   protected
 
   	def add_name
+      self.first_name.capitalize!
+      self.last_name.capitalize!
 	  	self.name = "#{self.first_name} #{self.last_name}"
 	end     
 

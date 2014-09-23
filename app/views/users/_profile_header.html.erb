@@ -1,0 +1,23 @@
+<div class="profile_header">
+		<!-- cover photo -->
+	<!-- 	<% if @user.cover_photo %>
+			<%= image_tag @user.cover_photo.photo.url, :id => "cover_photo" %>
+		<% else %>
+			<%= image_tag ("cover_default.jpg"), :id => "cover_photo" %>
+		<% end %> -->
+
+		<!-- profile photo -->
+		<% if @user.profile_photo %>
+			<%= image_tag @user.profile_photo.photo.url, :id => "profile_photo" %>
+		<% else %>
+			<%= image_tag ("profile_default.png"), :id => "profile_photo" %>
+		<% end %>		
+	<h1><%= @user.name %></h1>
+	<% if current_user.friendships.where(:friend_id => @user.id).any? %>
+		<h5>Friend <%= link_to "(cancel)", friendship_path(current_user.friendships.where(:friend_id => @user.id).first.id), :method => :delete %></h5>	
+	<% elsif @user.id != current_user.id && current_user.sent_requests.where(:recipient_id => @user.id).any? %>
+		<h5>Friend Request Sent</h5>
+	<% elsif @user.id != current_user.id %>		
+		<h5><%= link_to "Send Friend Request", requests_path(:recipient_id => @user.id), :method => :post %></h5>	
+	<% end %>
+</div> <!-- end profile_header -->
