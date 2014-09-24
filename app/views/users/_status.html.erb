@@ -17,27 +17,28 @@
 		<p><%= post.content %></p>
 
 		<!-- display likes -->
-		<p class="likers">
+		<ul class="likers">
 		<% if post.likers.any? %>
 			<% post.likers.each do |liker| %>
-				<%= link_to liker.name, user_path(liker.id) %>
+				<li><%= link_to liker.name, user_path(liker.id) %></li>
 			<% end %>
 			<% if post.likers.count == 1 %>
-			likes this.
+			<li>likes this.</li>
 			<% else %>
-			like this.
+			<li>like this.</li>
 			<% end %>
 		<% end %>
+		</ul>
 
 		<!-- display 'like' or 'unlike' -->
-		<% if liked?(post) %>
-				<%= link_to "unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %>
-		<% else %>
-				<%= link_to "like", likes_path(:post_id => post.id), method: :post %>
-		<% end %>
-		| <%= link_to "comment", "#" %>
-		</p>
-
+		<ul class="like_comment">
+			<% if liked?(post) %>
+					<li><%= link_to "unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %></li>
+			<% else %>
+					<li><%= link_to "like", likes_path(:post_id => post.id), method: :post %></li>
+			<% end %>
+			<li> | </li><li><%= link_to "comment", "#" %></li>
+		</ul>
 		<!-- form for comment display -->	
 		<% @post.comments.each do |comment| %>
 			<h4><%= comment.user.name %>: </h4>

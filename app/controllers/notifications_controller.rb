@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
 			friendship = request.sender.friendships.build(:friend_id => request.recipient.id)
 			friendship2 = request.recipient.friendships.build(:friend_id => request.sender.id)
 			if friendship.save && friendship2.save
-				flash[:success] = "Friendship Sucresssfull"
+				flash[:success] = "Friendship Successfull"
 				notification.destroy
 				redirect_to request.recipient
 			else

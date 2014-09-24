@@ -1,23 +1,46 @@
-<%= render "cover_photo_style" %>
-<%= render "shared/search_results" %>
-<%= render "shared/notifications" %>
+
 <div class="user_wrapper">
+	<%= render "cover_photo_style" %>
 	<div class="banner_wrapper">
-
-		<%= render "profile_header" %>
-		<%= render "profile_nav" %>
-
+		<div class="row">
+		<div class="profile_header">
+				<!-- profile photo -->
+				<% if @user.profile_photo %>
+					<%= image_tag @user.profile_photo.photo.url, :id => "profile_photo" %>
+				<% else %>
+					<%= image_tag ("profile_default.png"), :id => "profile_photo" %>
+				<% end %>		
+			<h1><%= @user.name %></h1>
+			<% if current_user.friendships.where(:friend_id => @user.id).any? %>
+				<button>Friend <%= link_to "(cancel)", friendship_path(current_user.friendships.where(:friend_id => @user.id).first.id), :method => :delete %></button>	
+			<% elsif @user.id != current_user.id && current_user.sent_requests.where(:recipient_id => @user.id).any? %>
+				<button>Friend Request Sent</button>
+			<% elsif @user.id != current_user.id %>		
+				<button><%= link_to "Send Friend Request", requests_path(:recipient_id => @user.id), :method => :post %></button>	
+			<% end %>
+		</div> <!-- end profile_header -->
+		</div>
+		<div class="row">
+		<div class="profile_nav">
+			<ul class="nav">
+				<li>Timeline</li>
+				<li>About</li>
+				<li>Photos</li>
+				<li>Friends</li>
+			</ul>
+		</div> <!-- end profile_nav -->	
+		</div>
 	</div> <!-- end banner_wrapper -->	
-	<div class="content">
+	<div class="content row">
 
-		<div class="info_wrapper">
+		<div class="info_wrapper span5 offset1">
 
 			<%= render "about" %>
 			<%= render "friends" %>
 
 		</div> <!-- end info_wrapper -->
 
-		<div class="status_wrapper">
+		<div class="status_wrapper span9">
 
 			<%= render "new_post" %>
 			<%= render "status" %>	

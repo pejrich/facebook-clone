@@ -1,22 +1,27 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
 * {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-h4 {
+/*h4 {
 	border-bottom: thin solid #e3e3e3;
 	text-align: center;
-}
+}*/
 
-.user_wrapper {
+/*.user_wrapper {
 	width: 85%;
 	border-radius: 5px;
 	margin: 0 auto 0 auto;
+}*/
+
+.banner_wrapper {
+	width: 90%;
+	margin: 0 auto;
 }
-
-
 
 #profile_photo {
 	position: relative;
@@ -27,6 +32,7 @@ h4 {
 	margin: 5px;
 	border: thick solid #e3e3e3;
 }
+
 
 
 .profile_header {
@@ -43,29 +49,30 @@ h4 {
 .profile_header h1 {
 	display: inline;
 	position: absolute;
-	top: 250px;
+	top: 220px;
 	margin-left: 15px;
 	color: rgb(255, 255, 255);
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;	
 	text-shadow: rgba(0, 0, 0, 0.8) 0px 0px 3px;
 }
 
-.profile_header h5 {
+.profile_header button {
+	color: #005580;
 	display: inline;
 	position: absolute;
-	top: 290px;
+	top: 280px;
+	left: 195px;
 	padding-left: 10px;
-	color: rgb(255, 255, 255);
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;	
-	text-shadow: rgba(190, 190, 190, 0.8) 0px 0px 3px;
+	text-shadow: rgba(255, 255, 255, 0.8) 0px 0px 3px;
 }
 
-.profile_na ul {
+.profile_nav ul {
 	list-style: none;
 	display: inline;
 }
 
-.profile_na li {
+.profile_nav li {
 	display: inline;
 	width: 25%;
 	color: rgb(59, 89, 152);
@@ -77,9 +84,12 @@ h4 {
 	padding: 0 60px;
 }
 
-.profile_na ul:first-child {
+
+.profile_nav ul:first-child {
 	margin-left: 225px;
 }
+
+
 
 .status, .about, .new_post, .friends {
 	margin: 5px;
@@ -93,20 +103,25 @@ h4 {
 	height: 50px;
 }
 
-.status_wrapper {
+/*.status_wrapper {
 	width: 65%;
 	float: right;
-}
+}*/
 
 .status {
 	position: relative;
 }
 
+.status p {
+	margin: 10px 0 6px 2px;
+	font-size: 18px;
+}
+
 .status h3 {
 	display: inline;
 	position: relative;
-	top: -35px;
-	left: -10px;
+	top: -10px;
+	left: 5px;
 	font-size: .8em;
 }
 
@@ -124,20 +139,34 @@ h4 {
 .status h5 {
 	display: inline;
 	position: absolute;
-	top: 30px;
+	top: 20px;
 	left: 65px;
 	color: rgb(145, 151, 163)
 }
 
-.status .likers {
+.status .like_comment {
 	margin-top: 10px;
 	padding-top: 3px;
 	border-top: thin solid #e3e3e3;
 	color: rgb(59, 89, 152);
 	cursor: pointer;
 	font-family: Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	line-height: 15.3599996566772px;
+}
+
+.status .likers {
+	font-size: 12px;
+}
+
+ul.likers, ul.like_comment {
+	margin: 0;
+	padding: 2px 0 0 2px;
+	list-style: none;
+}
+
+ul.likers li, ul.like_comment li {
+	display: inline;
 }
 
 .status_picture {
@@ -145,10 +174,10 @@ h4 {
 	height: 50px;	
 }
 
-.info_wrapper {
+/*.info_wrapper {
 	width: 32%;
 	float: left;
-}
+}*/
 
 .status, .new_post, .friends, .about {
 	border: thick solid #e3e3e3;
@@ -166,3 +195,53 @@ h4 {
 	border-bottom: thin solid #e3e3e3;
 	padding: 5px 0 5px 5px;
 }
+
+.dropdown-menu {
+	position: absolute;
+	top: 171%;
+	left: 200px;
+}
+
+
+
+.dropdown-menu > li > a {
+	display: inline;
+}
+
+.dropdown-menu-form {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  width: 595px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+     -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.dropdown-menu-form img {
+	width: 40px;
+	height: 40px;
+}
+
+
+
+
+

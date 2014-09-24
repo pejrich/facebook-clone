@@ -1,21 +1,27 @@
-
 $(document).ready(function() {
-	var $input = $('input');
-	var $search_results = $('#search_results')
-	var $notifications = $("#notifications")
-	$input.on('click', function() {
-		$search_results.slideDown(function() {
-
+	var $dropdown_toggle = $(".dropdown-toggle").find("a"),
+							$dropdown_menu = $(".dropdown-menu");
+							$dropdown_toggle_form = $(".dropdown-toggle").find("form"),
+							$dropdown_menu_form = $(".dropdown-menu-form");
+	$dropdown_toggle.on("click", function(e){
+		var target = $( event.target );
+		if (target.is("a")) {
+			var href = $(this).attr('href');
+			if ( href !== undefined ) {
+	      		window.location.href = href;
+      		}
+		}
+		$dropdown_menu.slideDown();
+		$(document).on('click', function(e) {
+			$dropdown_menu.slideUp();
 		});
-	});
+	})
 
-	$(".user_wrapper").on('click', function() {
-		$search_results.slideUp();
-		$notifications.slideUp();
-	});
-
-	$("#notification_link").on('click', function() {
-		$notifications.slideDown();
-	});
+	$dropdown_toggle_form.on("click", function(){
+		$dropdown_menu_form.slideDown();
+		$(document).on('click', function(e) {
+			$dropdown_menu_form.slideUp();
+		});
+	})	
 	
 });

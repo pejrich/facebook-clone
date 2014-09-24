@@ -1,21 +1,45 @@
-<header class="signed_in_header">
-	<h1 class="logo">facebook</h1>
-	<%= form_tag @search, :id => 'search', :method => 'get' do %>
-		<p>
-		<%= text_field_tag :search, params[:search] %>
-		<%= submit_tag "Search" %>
-		</p>
-	<% end %>
-	<ul>
-		<li>requests</li>
-		<li>messages</li>
-		<li id="notification_link">notifications
-			<% if current_user.notifications.any? %>
-				(<%= current_user.notifications.count %>)
+<nav class="navbar" role="navigation">
+	<div class="navbar-header">
+		<a class="navbar-brand">facebook</a>
+	</div>
+	<div class="navbar-form dropdown-toggle" data-toggle="dropdown">
+		<%= form_tag @search, :method => 'get' do %>
+			<%= text_field_tag :search, params[:search] %>
+		<% end %>
+		<ul class="dropdown-menu-form">
+			<% if @search_results %>
+				<% @search_results.each do |result| %>
+					<li><%= image_tag result.profile_photo.photo.url %><%= link_to result.name, user_path(result.id) %></li>
+				<% end %>	
 			<% end %>
-		</li>
-
-		<li><%= link_to current_user.name, user_path(current_user.id) %></li>
-		<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-	</ul>	
-</header>
+		</ul>	
+	</div>	
+	<div class="navbar-nav">
+		<ul>
+			<li><%= link_to current_user.first_name , user_path(current_user.id) %> | <%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+			<li>requests</li>
+			<li>messages</li>
+			<li id="notifications_link" data-toggle="dropdown" class="dropdown-toggle"><a data-target="#" data-toggle="dropdown" class="dropdown-toggle">notifications</a>
+				<% if current_user.notifications.any? %>
+				(<%= current_user.notifications.count %>)
+				<% end %>
+				<ul class="dropdown-menu">
+			        <% if @notifications %>
+						<% @notifications.each do |notification| %>
+							<li>
+								<% if notification.friend_request? %>
+									<%= link_to notification.message, user_path(notification.sender_id) %><br>
+									<%= link_to "Accept", notification_path(notification.id, :accepted => 1, :notification_id => notification.id), :method => :delete %>
+									|<%= link_to "Decline", notification_path(notification.id, :accepted => 0, :notification_id => notification.id), :method => :delete %><br><br>
+								<% else %>
+									<%= link_to notification.message, user_path(notification.user_id) %><br>
+									<%= link_to "Ok", notification_path(notification.id, :notification_id => notification.id), :method => :delete %><br><br>
+								<% end %>	
+							</li>
+						<% end %>
+					<% end %>
+				</ul>
+			</li>
+		</ul>
+	</div>	
+</nav>

@@ -13,57 +13,65 @@
  */
 
 * {
-	margin: 0px 5px 5px 5px;
-}
-
-.signed_in_header form {
- 	width: 450px;
 	margin: 0;
-	padding-left: 350px;
-	padding-top: 15px;
- }
-
-
-a:visited {
-	color: black;
 }
 
-a:hover {
-	color: #343434;
+.alert {
+	margin-bottom: 0px !important;
 }
 
- .signed_in_header {
- 	height: 45px;
- 	width: 100%;
- 	background-color: #3b5998;
- 	margin: 0px;
- 	position: relative
- }
 
- .signed_in_header li {
- 	display: inline;
- }
+/*!!!!!!!!!!!*/
+/* =navbar */
+/*!!!!!!!!!!!*/
 
- .signed_in_header ul {
- 	float: right;
- 	margin-right: 10%;
- 	margin-top: 10px;
- 	position: relative;
-	top: -40px;
- }
+.navbar {
+	height: 55px;
+	background-color: #3b5998;
+	margin: 0px !important;
+}
 
- header h1 {
- 	position: absolute;
- 	top: 4px;
- 	left: 5px;
- 	width: 40px;
- 	height: 40px;
- 	margin: auto 10px;
- 	background-image: url("facebook.png");
- 	background-repeat: none;
- 	background-size: contain;
- 	text-indent: -9999px;
- }
+.navbar-header {
+	position: relative;
+	left: 55px;
+	top: 10px;
+	width: 35px;
+	height: 35px;
+	background-image: url("facebook.png");
+	background-repeat: none;
+	background-size: contain;
+	text-indent: -9999px;
+	margin: 0;
+}
+
+.navbar-form {
+	position: relative;
+	left: 100px;
+	top: -29px;
+	height: 35px;
+	width: 580px;
+}
+
+.navbar-form #search {
+	width: 580px;
+}
+
+.navbar-nav{
+	position: relative;
+	top: -52px;
+	left: 720px;
+	float: none;
+}
+
+.navbar-nav ul {
+	list-style: none;
+}
+
+.navbar-nav li {
+	display: inline;
+	padding: 0 2px;
+
+}
 
  #search_results {
  	width: 300px;
@@ -76,16 +84,6 @@ a:hover {
  	z-index: 1;
  }
 
- #notifications {
-	width: 250px;
- 	position: absolute;
- 	left: 700px;
- 	list-style: none;
- 	display: none;
- 	background-color: #e4e4e4;
- 	color: black;
- 	z-index: 1;	
- }
 
 
 

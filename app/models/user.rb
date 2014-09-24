@@ -43,9 +43,12 @@ class User < ActiveRecord::Base
     self.wall.save
     if self.photos.any?
       self.photos.first.profile_photo = true
-      self.photos.first.save
+      self.photos.first.save 
+    else
+      self.photos.build(:photo => File.new("/Users/pe_rich/Desktop/WebProgramming/The Odin Project/facebook-clone/facebook/app/assets/images/profile_default.png", "r"), :profile_photo => true).save   
     end
   end
+
 
   protected
 
