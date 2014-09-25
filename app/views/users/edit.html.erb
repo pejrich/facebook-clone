@@ -1,5 +1,7 @@
-<h2>Edit <%= @user.name %>'s profile</div>
+<div class="user_wrapper row user_edit">
 
+<h2>Edit <%= @user.name %>'s profile</div>
+<div class="edit_content">
   <%= form_for @user do |f| %>
 
   <%= f.label :first_name %>
@@ -39,3 +41,5 @@
 
 
 <%= link_to "Back", :back %>
+</div>
+</div>
