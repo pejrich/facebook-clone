@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-	has_many :comments
+	has_many :comments, :as => :commentable
 	has_many :likes
 	has_many :likers, :through => :likes, :source => :user
 	belongs_to :author, :class_name => "User"

@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921113235) do
+ActiveRecord::Schema.define(version: 20140925123104) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
   end
 
   create_table "friendships", force: true do |t|
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 20140921113235) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.string   "name"
     t.string   "company"
     t.string   "job_title"
     t.string   "current_city"
@@ -102,7 +104,6 @@ ActiveRecord::Schema.define(version: 20140921113235) do
     t.boolean  "in_a_relationship"
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

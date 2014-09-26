@@ -16,6 +16,25 @@
 		<h5><%= post.created_at.strftime("%B %d") %></h5>
 		<p><%= post.content %></p>
 
+		<!-- display 'like' or 'unlike' | 'comment' -->
+		<ul class="like_comment">
+			<% if liked?(post) %>
+					<li><%= link_to "unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %></li>
+			<% else %>
+					<li><%= link_to "like", likes_path(:post_id => post.id), method: :post %></li>
+			<% end %>
+			<li> | </li>
+			<li><a>comment</a></li>
+			<li id="new_comment">
+				<%= form_for @comment, :id => "new_comment" do |f| %>
+					<%= f.text_field :content %>
+					<%= hidden_field_tag "id", post.wall.user.id %>
+					<%= hidden_field_tag "comment[commentable_id]", post.id %>
+					<%= hidden_field_tag "comment[commentable_type]", post.class.to_s %>
+					<%= f.submit %>
+				<% end %>
+			</li>
+		</ul>
 		<!-- display likes -->
 		<ul class="likers">
 		<% if post.likers.any? %>
@@ -29,21 +48,31 @@
 			<% end %>
 		<% end %>
 		</ul>
-
-		<!-- display 'like' or 'unlike' -->
-		<ul class="like_comment">
-			<% if liked?(post) %>
-					<li><%= link_to "unlike", like_path(like_id(post)), :post_id => post.id, method: :delete %></li>
-			<% else %>
-					<li><%= link_to "like", likes_path(:post_id => post.id), method: :post %></li>
-			<% end %>
-			<li> | </li><li><%= link_to "comment", "#" %></li>
-		</ul>
 		<!-- form for comment display -->	
-		<% @post.comments.each do |comment| %>
-			<h4><%= comment.user.name %>: </h4>
-			<p><%= comment.content %></p>
+		<% post.comments.each do |comment| %>
+		<div class="post_comment row">
+			<div class="comment_photo span1">
+				<%= image_tag comment.user.profile_photo.photo.url %>
+			</div>	
+			<div class="span7 comment_content">
+				<span id="comment_content">
+					<%= link_to comment.user.name, user_path(comment.user.id) %>
+				</span>
+				<%= comment.content %>
+			</div>
+		</div>		
 		<% end %>
+		<%= form_for @comment, :id => "new_comment_show" do |f| %>
+					<%= f.text_field :content %>
+					<%= hidden_field_tag "id", post.wall.user.id %>
+					<%= hidden_field_tag "comment[commentable_id]", post.id %>
+					<%= hidden_field_tag "comment[commentable_type]", post.class.to_s %>
+					<%= f.submit %>
+				<% end %>
+
+		
+
+		
 
 	</div> <!-- end status -->
 <% end %>

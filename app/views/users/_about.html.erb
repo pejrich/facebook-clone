@@ -1,4 +1,4 @@
-<div class="about">
+
 	<h4>ABOUT <%= @user.first_name.upcase %></h4>
 	<% if !@user.job_title.blank? %>
 		<h5><%= @user.job_title %>
@@ -18,4 +18,3 @@
 	<% if @user.id == current_user.id %>
 		<%= link_to "Edit profile", edit_user_path(current_user.id) %>
 	<% end %>	
-</div> <!-- end about -->
